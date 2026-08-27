@@ -40,8 +40,8 @@ do
 
     switch (opcao)
     {
-        //case 1: CadastrarCurso(); break;
-        //case 2: CadastrarProfessor(); break;
+        case 1: CadastrarCurso(); break;
+        case 2: CadastrarProfessor(); break;
         //case 3: CadastrarAluno(); break;
         //case 4: CadastrarDisciplina(); break;
         //case 5: VincularDisciplinaCurso(); break;
@@ -67,9 +67,7 @@ do
 //Metodos
 
 //Cadastrar Curso
-
-{
-    void CadastrarCurso()
+   void CadastrarCurso()
     {
         Console.Clear();
         Console.WriteLine("--- Cadastro de Curso ---");
@@ -91,7 +89,7 @@ do
         cursos.Add(new Curso(codigo, nome, tipo));
         Console.WriteLine("Curso cadastrado com sucesso!");
     }
-}
+
 
 
 //Cadastrar Professor
