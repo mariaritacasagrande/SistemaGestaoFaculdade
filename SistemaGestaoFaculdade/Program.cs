@@ -129,5 +129,55 @@ void CadastrarProfessor()
     Console.WriteLine("Professor cadastrado com sucesso!");
 }
 
+// Cadastrar Aluno
+
+void CadastrarAluno()
+{
+    Console.Clear();
+    Console.WriteLine("--- Cadastro de Aluno ---");
+
+    Console.Write("Nome: ");
+    string nome = Console.ReadLine();
+
+    // Aceita somente letras e espaços
+    while (!Regex.IsMatch(nome ?? "", @"^[a-zA-ZÀ-ÿ\s]+$"))
+    {
+        Console.Write("Nome inválido! Digite o nome novamente: ");
+        nome = Console.ReadLine();
+    }
+
+    Console.Write("CPF: ");
+    string cpf = Console.ReadLine();
+
+    while (!Regex.IsMatch(cpf ?? "", @"^\d{11}$"))
+    {
+        Console.Write("CPF inválido! Digite o CPF com 11 digitos: ");
+        cpf = Console.ReadLine();
+    }
+
+    if (alunos.Any(a => a.CPF == cpf))
+    {
+        Console.WriteLine("Erro: CPF já cadastrado.");
+        return;
+    }
+
+    Console.Write("E-mail: ");
+    string email = Console.ReadLine();
+
+    Console.Write("Número de matrícula: ");
+    string numeroMatricula = Console.ReadLine();
+
+    if (alunos.Any(a => a.NumeroMatricula == numeroMatricula))
+    {
+        Console.WriteLine("Erro: Número de matrícula já cadastrada.");
+        return;
+    }
+
+    alunos.Add(new Aluno(nome, cpf, email, numeroMatricula));
+
+    Console.WriteLine("Aluno cadastrado com sucesso!");
+}
+
+
 //parei aqui, o plano era criar Cadastrar Aluno, Cadastrar Disciplina, Vincular Disciplina Curso, Matricula Aluno Curso,
 //Lançar Nota, Consultar Pessoa, Consultar Curso, Consultar Matricula, Consultar Boletim, ENviar Notificação
