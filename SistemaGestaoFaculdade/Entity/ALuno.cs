@@ -12,7 +12,7 @@ namespace SistemaGestaoFaculdade.Entity
         public string NumeroMatricula { get; set; }
 
         //o aluno pode se matricular em varios cursos
-        public List<Matricula> Matriculas { get; set; } = new List<Matricula>(List);
+        public List<Matricula> Matriculas { get; set; } = new List<Matricula>();
 
         //Construtor de Aluno
 

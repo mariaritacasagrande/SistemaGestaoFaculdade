@@ -40,18 +40,18 @@ do
 
     switch (opcao)
     {
-        case 1: CadastrarCurso(); break;
-        case 2: CadastrarProfessor(); break;
-        case 3: CadastrarAluno(); break;
-        case 4: CadastrarDisciplina(); break;
-        case 5: VincularDisciplinaCurso(); break;
-        case 6: MatricularAlunoCurso(); break;
-        case 7: LancarNota(); break;
-        case 8: ConsultarPessoas(); break;
-        case 9: ConsultarCursos(); break;
-        case 10: ConsultarMatriculas(); break;
-        case 11: ConsultarBoletim(); break;
-        case 12: EnviarNotificacao(); break;
+        //case 1: CadastrarCurso(); break;
+        //case 2: CadastrarProfessor(); break;
+        //case 3: CadastrarAluno(); break;
+        //case 4: CadastrarDisciplina(); break;
+        //case 5: VincularDisciplinaCurso(); break;
+        //case 6: MatricularAlunoCurso(); break;
+        //case 7: LancarNota(); break;
+        //case 8: ConsultarPessoas(); break;
+        //case 9: ConsultarCursos(); break;
+        //case 10: ConsultarMatriculas(); break;
+        //case 11: ConsultarBoletim(); break;
+        //case 12: EnviarNotificacao(); break;
         case 0: Console.WriteLine("Saindo..."); break;
         default: Console.WriteLine("Opção inválida!"); break;
     }
@@ -87,7 +87,7 @@ do
         Console.WriteLine("Tipo (1 - Graduação | 2 - Pós-graduação): ");
         int tipoOp = int.Parse(Console.ReadLine());
 
-        TipoCurso tipo = (tipoOp == 2) ? TipoCurso.PosGraduacao : TipoCurso.Graduacao;
+        TipoCurso tipo = (tipoOp == 2) ? TipoCurso.PosGraduacao : TipoCurso.Graduação;
         cursos.Add(new Curso(codigo, nome, tipo));
         Console.WriteLine("Curso cadastrado com sucesso!");
     }
@@ -105,7 +105,7 @@ void CadastrarProfessor()
     Console.Write("CPF: ");
     string cpf = Console.ReadLine();
 
-    if (professores.Any(p => p.Cpf == cpf))
+    if (professores.Any(p => p.CPF == cpf))
     {
         Console.WriteLine("Erro: CPF já cadastrado.");
         return;

@@ -6,7 +6,7 @@ namespace SistemaGestaoFaculdade.Entity
 {
 
     //Maria Inicicando aqui o/ - Pessoa é a classe base abstrata para não repetirmos atributos comuns (Nome, CPF, E-mail)
-    internal class Pessoa
+    public class Pessoa
     {
         public string Nome { get; set; }
         public string CPF { get; set; }
