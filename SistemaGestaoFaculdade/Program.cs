@@ -51,7 +51,7 @@ do
         case 7: LancarNota(); break;
         //case 8: ConsultarPessoas(); break;
         //case 9: ConsultarCursos(); break;
-        //case 10: ConsultarMatriculas(); break;
+        case 10: ConsultarMatriculas(); break;
         //case 11: ConsultarBoletim(); break;
         case 12: EnviarNotificacao(); break;
         case 0: Console.WriteLine("Saindo..."); break;
@@ -358,10 +358,33 @@ void EnviarNotificacao()
         Console.Write("Registro do Professor: ");
         string reg = Console.ReadLine();
         Professor p = professores.FirstOrDefault(x => x.Registro == reg);
-     //   p?.ReceberNotificacao(msg);
+       // p?.ReceberNotificacao(msg);
+    }
+}
+
+//Consulta de matrículas
+
+void ConsultarMatriculas()
+{
+    Console.Clear();
+    Console.WriteLine("--- Consulta de Matrículas ---");
+
+    // Verifica se não existe nenhuma matrícula cadastrada
+    if (!matriculas.Any())
+    {
+        Console.WriteLine("Não existem matrículas cadastradas.");
+        return;
     }
 
-
+    // Percorre todas as matrículas cadastradas
+    foreach (Matricula matricula in matriculas)
+    {
+        Console.WriteLine($"Aluno: {matricula.Aluno.Nome}");
+        Console.WriteLine($"Matrícula: {matricula.Aluno.NumeroMatricula}");
+        Console.WriteLine($"Curso: {matricula.Curso.Nome}");
+        Console.WriteLine($"Tipo: {matricula.Curso.Tipo}");
+        Console.WriteLine("--------------------------------");
+    }
 }
 
 void LancarNota()
@@ -375,9 +398,8 @@ void LancarNota()
         return;
     }
 
-    Console.Write("Digite a Matricula do Aluno: ");
+    Console.Write("Digite a matricula do Aluno: ");
     string matricula = Console.ReadLine()?.Trim();
-
 
     // Busca todas as matrículas deste aluno (já que ele pode ter mais de um curso)
     var matriculasAluno = matriculas.Where(m => m.Aluno != null && m.Aluno.NumeroMatricula.Equals(matricula, StringComparison.OrdinalIgnoreCase)).ToList();
@@ -452,5 +474,6 @@ void LancarNota()
     Console.WriteLine($"\nNota {nota:F1} lançada com sucesso!");
     Console.WriteLine($"Situação na disciplina: {situacao}");
 }
+
 //parei aqui, o plano era criar Cadastrar Aluno, Cadastrar Disciplina, Vincular Disciplina Curso, Matricula Aluno Curso,
 //Lançar Nota, Consultar Pessoa, Consultar Curso, Consultar Matricula, Consultar Boletim, ENviar Notificação
