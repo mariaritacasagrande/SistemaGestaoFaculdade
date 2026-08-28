@@ -41,6 +41,9 @@ do
 
     switch (opcao)
     {
+        //case 1: CadastrarCurso(); break;
+        case 2:Console.WriteLine("=== Cadastrar Disciplina ===\n");
+         CadastrarProfessor(); break;
         case 1: CadastrarCurso(); break;
         case 2: CadastrarProfessor(); break;
         case 3: CadastrarAluno(); break;
@@ -126,6 +129,64 @@ void CadastrarProfessor()
 
     professores.Add(new Professor(nome, cpf, email, registro, especialidade));
     Console.WriteLine("Professor cadastrado com sucesso!");
+}
+
+//Cadastrar Disciplina
+void CadastrarDisciplina()
+{
+    Console.Clear();
+    Console.WriteLine("--- Cadastro de Disciplina ---");
+
+    Console.Write("Código: ");
+    string codigo = Console.ReadLine();
+
+    if (disciplinas.Any(d => d.Codigo.Equals(codigo, StringComparison.OrdinalIgnoreCase)))
+    {
+        Console.WriteLine("Erro: Já existe uma disciplina com este código.");
+        Console.ReadKey();
+        return;
+    }
+
+    Console.Write("Nome: ");
+    string nome = Console.ReadLine();
+
+    Console.Write("Carga Horária: ");
+    int cargaHoraria = int.Parse(Console.ReadLine());
+
+    if (!professores.Any())
+    {
+        Console.WriteLine("Erro: Não existem professores cadastrados.");
+        Console.ReadKey();
+        return;
+    }
+
+    Console.Write("Digite o código do professor responsável: ");
+    string codigoProfessor = Console.ReadLine();
+
+    Console.Write("Professor responsável: ");
+    string nomeProfessor = Console.ReadLine();
+
+    Professor professorResponsavel = professores
+    .FirstOrDefault(p => p.Nome.Equals(nomeProfessor, StringComparison.OrdinalIgnoreCase));
+
+    if (professorResponsavel == null)
+    {
+        Console.WriteLine("Erro: Professor não encontrado.");
+        Console.ReadKey();
+        return;
+    }
+
+    disciplinas.Add(
+        new Disciplina(
+            codigo,
+            nome,
+            cargaHoraria,
+            professorResponsavel
+        )
+    );
+
+    Console.WriteLine("Disciplina cadastrada com sucesso!");
+    Console.ReadKey();
 }
 
 // Cadastrar Aluno
