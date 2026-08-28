@@ -52,7 +52,7 @@ do
         //case 8: ConsultarPessoas(); break;
         //case 9: ConsultarCursos(); break;
         case 10: ConsultarMatriculas(); break;
-        //case 11: ConsultarBoletim(); break;
+        case 11: ConsultarBoletim(); break;
         case 12: EnviarNotificacao(); break;
         case 0: Console.WriteLine("Saindo..."); break;
         default: Console.WriteLine("Opção inválida!"); break;
@@ -475,5 +475,100 @@ void LancarNota()
     Console.WriteLine($"Situação na disciplina: {situacao}");
 }
 
+void ConsultarBoletim()
+{
+    Console.Clear();
+    Console.WriteLine("========= BOLETIM =========");
+
+    // irá verificar se existem matrículas cadastradas
+    if (!matriculas.Any())
+    {
+        Console.WriteLine("Erro: Nenhuma matrícula cadastrada no sistema.");
+        return;
+    }
+
+    Console.Write("Digite a matrícula do aluno: ");
+    string numeroMatricula = Console.ReadLine()?.Trim();
+
+    // Busca todas as matrículas desse aluno
+    var matriculasAluno = matriculas
+        .Where(m => m.Aluno != null &&
+                    m.Aluno.NumeroMatricula.Equals(
+                        numeroMatricula,
+                        StringComparison.OrdinalIgnoreCase))
+        .ToList();
+
+    if (!matriculasAluno.Any())
+    {
+        Console.WriteLine("Erro: Nenhuma matrícula encontrada para o número informado.");
+        return;
+    }
+
+    Matricula matriculaSelecionada;
+
+  
+    if (matriculasAluno.Count == 1)
+    {
+        matriculaSelecionada = matriculasAluno[0];
+    }
+    else
+    {
+        
+        Console.WriteLine("\nO aluno possui mais de uma matrícula.");
+        Console.WriteLine("Escolha a matrícula que deseja consultar:");
+
+        for (int i = 0; i < matriculasAluno.Count; i++)
+        {
+            Console.WriteLine(
+                $"{i + 1} - {matriculasAluno[i].Curso.Nome} " +
+                $"({matriculasAluno[i].Curso.Codigo})");
+        }
+
+        Console.Write("Opção: ");
+
+        if (!int.TryParse(Console.ReadLine(), out int opcao) ||
+            opcao < 1 ||
+            opcao > matriculasAluno.Count)
+        {
+            Console.WriteLine("Erro: Opção inválida.");
+            return;
+        }
+
+        matriculaSelecionada = matriculasAluno[opcao - 1];
+    }
+
+    Aluno aluno = matriculaSelecionada.Aluno;
+    Curso curso = matriculaSelecionada.Curso;
+
+    // Boletim
+    Console.WriteLine();
+    Console.WriteLine("========= BOLETIM =========");
+    Console.WriteLine($"Aluno: {aluno.Nome}");
+    Console.WriteLine($"Matrícula: {aluno.NumeroMatricula}");
+    Console.WriteLine($"Curso: {curso.Nome}");
+    Console.WriteLine($"Tipo: {curso.Tipo}");
+
+    if (matriculaSelecionada.Boletim == null ||
+        matriculaSelecionada.Boletim.NotaPorDisciplina.Count == 0)
+    {
+        Console.WriteLine("\nNenhuma nota lançada ainda.");
+        Console.WriteLine("===========================");
+        return;
+    }
+
+    foreach (var item in matriculaSelecionada.Boletim.NotaPorDisciplina)
+    {
+        Disciplina disciplina = item.Key;
+        double nota = item.Value;
+
+        string situacao = matriculaSelecionada.Boletim
+            .ObterSituacao(nota, curso.Tipo);
+
+        Console.WriteLine(
+            $"{disciplina.Nome} | Nota: {nota:F1} | Situação: {situacao}");
+    }
+
+    Console.WriteLine("===========================");
+}
 //parei aqui, o plano era criar Cadastrar Aluno, Cadastrar Disciplina, Vincular Disciplina Curso, Matricula Aluno Curso,
 //Lançar Nota, Consultar Pessoa, Consultar Curso, Consultar Matricula, Consultar Boletim, ENviar Notificação
