@@ -288,7 +288,7 @@ void VincularDisciplinaCurso()
 }
 
 
-//Matricular aluno em curso
+//--- Matricular aluno em curso
 void MatricularAlunoCurso()
 {
     Console.Clear(); 
