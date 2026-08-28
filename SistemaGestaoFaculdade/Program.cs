@@ -45,8 +45,8 @@ do
         case 1: CadastrarCurso(); break;
         case 2: CadastrarProfessor(); break;
         case 3: CadastrarAluno(); break;
-        //case 4: CadastrarDisciplina(); break;
-        //case 5: VincularDisciplinaCurso(); break;
+        case 4: CadastrarDisciplina(); break;
+        case 5: VincularDisciplinaCurso(); break;
         //case 6: MatricularAlunoCurso(); break;
         //case 7: LancarNota(); break;
         //case 8: ConsultarPessoas(); break;
@@ -234,6 +234,57 @@ void CadastrarAluno()
     alunos.Add(new Aluno(nome, cpf, email, numeroMatricula));
 
     Console.WriteLine("Aluno cadastrado com sucesso!");
+}
+
+void VincularDisciplinaCurso()
+{
+    Console.Clear();
+    Console.WriteLine("--- VINCULAR DISCIPLINA AO CURSO ---");
+
+    if (!cursos.Any())
+    {
+        Console.WriteLine("Erro: Nenhum curso cadastrado.");
+        return;
+    }
+
+    if (!disciplinas.Any())
+    {
+        Console.WriteLine("Erro: Nenhuma disciplina cadastrada.");
+        return;
+    }
+
+    Console.Write("Código do Curso: ");
+    string codCurso = Console.ReadLine();
+
+    // Busca o curso na lista
+    Curso curso = cursos.FirstOrDefault(c => c.Codigo.Equals(codCurso, StringComparison.OrdinalIgnoreCase));
+    if (curso == null)
+    {
+        Console.WriteLine("Erro: Curso não encontrado.");
+        return;
+    }
+
+    Console.Write("Código da Disciplina: ");
+    string codDisc = Console.ReadLine();
+
+    // Busca a disciplina na lista
+    Disciplina disciplina = disciplinas.FirstOrDefault(d => d.Codigo.Equals(codDisc, StringComparison.OrdinalIgnoreCase));
+    if (disciplina == null)
+    {
+        Console.WriteLine("Erro: Disciplina não encontrada.");
+        return;
+    }
+
+    // Verifica se a disciplina já está vinculada ao curso
+    if (curso.Disciplinas != null && curso.Disciplinas.Any(d => d.Codigo.Equals(codDisc, StringComparison.OrdinalIgnoreCase)))
+    {
+        Console.WriteLine("Erro: Disciplina já está vinculada a este curso.");
+        return;
+    }
+
+    // Adiciona a disciplina na lista de disciplinas do curso
+    curso.Disciplinas.Add(disciplina);
+    Console.WriteLine("Disciplina vinculada ao curso com sucesso!");
 }
 
 
