@@ -49,8 +49,8 @@ do
         case 5: VincularDisciplinaCurso(); break;
         case 6: MatricularAlunoCurso(); break;
         case 7: LancarNota(); break;
-        //case 8: ConsultarPessoas(); break;
-        //case 9: ConsultarCursos(); break;
+        case 8: ConsultarPessoas(); break;
+        case 9: ConsultarCursos(); break;
         case 10: ConsultarMatriculas(); break;
         //case 11: ConsultarBoletim(); break;
         case 12: EnviarNotificacao(); break;
@@ -333,7 +333,119 @@ void MatricularAlunoCurso()
     Console.WriteLine("Aluno matriculado com sucesso!");
 }
 
+//--- Consulta de pessoas
+void ConsultarPessoas()
+{
+    int opcaoConsulta;
 
+    do
+    {
+        Console.Clear();
+        Console.WriteLine("--- Consulta de Pessoas ---");
+        Console.WriteLine("1 - Aluno");
+        Console.WriteLine("2 - Professor");
+        Console.WriteLine("0 - Voltar");
+        Console.WriteLine("---------------------------\n");
+        Console.Write("Escolha uma opção: ");
+
+
+        if (!int.TryParse(Console.ReadLine(), out opcaoConsulta))
+        {
+            Console.WriteLine("Opção inválida!");
+            Console.ReadKey();
+            continue;
+        }
+
+        switch (opcaoConsulta)
+        {
+            case 1:
+                if (alunos.Count == 0)
+                {
+                    Console.WriteLine("Nenhum aluno cadastrado.");
+                    Console.ReadKey();
+                    break;
+                }
+
+                foreach (Aluno aluno in alunos)
+                {
+                    Console.WriteLine($"Nome: {aluno.Nome}");
+                    Console.WriteLine($"CPF: {aluno.CPF}");
+                    Console.WriteLine($"E-mail: {aluno.Email}");
+                    Console.WriteLine($"Número de matrícula: {aluno.NumeroMatricula}");
+
+                    Console.WriteLine("Curso(s) em que está matriculado: ");
+                    foreach (Matricula matricula in aluno.Matriculas)
+                        Console.WriteLine($"- {matricula.Curso.Nome}");
+                }
+                break;
+
+            case 2:
+                if (professores.Count == 0)
+                {
+                    Console.WriteLine("Nenhum professor cadastrado.");
+                    Console.ReadKey();
+                    break;
+                }
+
+                foreach (Professor professor in professores)
+                {
+                    Console.WriteLine($"Nome: {professor.Nome}");
+                    Console.WriteLine($"CPF: {professor.CPF}");
+                    Console.WriteLine($"E-mail: {professor.Email}");
+                    Console.WriteLine($"Registro: {professor.Registro}");
+                    Console.WriteLine($"Especialidade: {professor.Especialidade}");
+                }
+                break;
+
+            case 0:
+                break;
+
+            default:
+                Console.WriteLine("Opção inválida!");
+                Console.ReadKey();
+                break;
+        }
+    } while (opcaoConsulta != 0);
+}
+
+//--- Consulta de cursos
+void ConsultarCursos()
+{
+    Console.Clear();
+    Console.WriteLine("--- Consulta de Cursos ---\n");
+
+    if (cursos.Count == 0)
+    {
+        Console.WriteLine("Nenhum curso cadastrado.");
+        return;
+    }
+
+    //Lista cursos
+    foreach (Curso curso in cursos)
+    {
+        Console.WriteLine($"Código: {curso.Codigo}");
+        Console.WriteLine($"Nome: {curso.Nome}");
+        Console.WriteLine($"Tipo: {curso.Tipo}");
+
+        //Lista disciplinas de cada curso e o professor responsável
+        Console.WriteLine("\nDisciplinas: ");
+        foreach (Disciplina disciplina in curso.Disciplinas)
+        {
+            Console.WriteLine($"- {disciplina.Nome}");
+            Console.WriteLine($"Professor: {disciplina.ProfessorResponsavel.Nome}");
+        }
+
+        //Lista alunos matriculados em cada curso
+        Console.WriteLine("\nAlunos Matriculados:");
+        foreach (Matricula matricula in matriculas)
+        {
+            if (matricula.Curso == curso)
+                Console.WriteLine($"- {matricula.Aluno.Nome}");
+        }
+
+        Console.WriteLine("---------------------------\n");
+    }
+}
 
 //Enviar Notificação
 
