@@ -41,11 +41,11 @@ do
     switch (opcao)
     {
         //case 1: CadastrarCurso(); break;
-        //case 2: CadastrarProfessor(); break;
+        case 2: CadastrarProfessor(); break;
         //case 3: CadastrarAluno(); break;
         //case 4: CadastrarDisciplina(); break;
         //case 5: VincularDisciplinaCurso(); break;
-        //case 6: MatricularAlunoCurso(); break;
+        case 6: MatricularAlunoCurso(); break;
         //case 7: LancarNota(); break;
         //case 8: ConsultarPessoas(); break;
         //case 9: ConsultarCursos(); break;
@@ -129,5 +129,54 @@ void CadastrarProfessor()
     Console.WriteLine("Professor cadastrado com sucesso!");
 }
 
+//Matricular aluno em curso
+void MatricularAlunoCurso()
+{
+    Console.Clear();
+    Console.WriteLine("-------- Matrícula do Aluno em curso --------");
+
+    Console.Write("Número de matrícula do aluno: ");
+    string numeroMatricula = Console.ReadLine();
+
+    //Busca nos alunos se o número da matrícula é igual ao digitado
+    Aluno aluno = alunos.FirstOrDefault(a => a.NumeroMatricula == numeroMatricula);
+
+    //Se não encontra o aluno, para
+    if (aluno == null)
+    {
+        Console.WriteLine("Erro: Aluno não matriculado");
+        return;
+    }
+
+    //Busca na lista de curso pelo código informado
+    Console.Write("Código do curso: ");
+    string CodigoCurso = Console.ReadLine();
+
+    Curso curso = cursos.FirstOrDefault(curso => curso.Codigo.Equals(CodigoCurso, StringComparison.OrdinalIgnoreCase));
+
+    //Se não encontra o curso, para
+    if (curso == null)
+    {
+        Console.WriteLine("Erro: Curso não encontrado.");
+        return;
+    }
+
+    if (matriculas.Any(m => m.Aluno == aluno && m.Curso == curso))
+    {
+        Console.WriteLine("Erro: Aluno já esta matriculado neste curso.");
+        return;
+    }
+
+    Matricula novaMatricula = new Matricula(aluno, curso);
+
+    matriculas.Add(novaMatricula);
+    aluno.Matriculas.Add(novaMatricula);
+
+    Console.WriteLine("Aluno matriculado com sucesso!");
+}
+
+
+
 //parei aqui, o plano era criar Cadastrar Aluno, Cadastrar Disciplina, Vincular Disciplina Curso, Matricula Aluno Curso,
 //Lançar Nota, Consultar Pessoa, Consultar Curso, Consultar Matricula, Consultar Boletim, ENviar Notificação
+
