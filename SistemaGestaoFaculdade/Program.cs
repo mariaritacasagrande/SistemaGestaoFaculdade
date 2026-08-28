@@ -44,7 +44,7 @@ do
         case 2:Console.WriteLine("=== Cadastrar Disciplina ===\n");
          CadastrarProfessor(); break;
         case 1: CadastrarCurso(); break;
-        case 2: CadastrarProfessor(); break;
+        //case 2: CadastrarProfessor(); break;
         //case 3: CadastrarAluno(); break;
         case 4:  Console.WriteLine("=== Cadastrar Disciplina ===\n");
          CadastrarDisciplina(); break;
