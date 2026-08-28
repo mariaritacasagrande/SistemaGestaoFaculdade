@@ -41,7 +41,7 @@ do
     switch (opcao)
     {
         //case 1: CadastrarCurso(); break;
-        case 2: CadastrarProfessor(); break;
+        //case 2: CadastrarProfessor(); break;
         //case 3: CadastrarAluno(); break;
         //case 4: CadastrarDisciplina(); break;
         //case 5: VincularDisciplinaCurso(); break;
@@ -67,9 +67,7 @@ do
 //Metodos
 
 //Cadastrar Curso
-
-{
-    void CadastrarCurso()
+   void CadastrarCurso()
     {
         Console.Clear();
         Console.WriteLine("--- Cadastro de Curso ---");
@@ -91,7 +89,7 @@ do
         cursos.Add(new Curso(codigo, nome, tipo));
         Console.WriteLine("Curso cadastrado com sucesso!");
     }
-}
+
 
 
 //Cadastrar Professor
@@ -129,53 +127,31 @@ void CadastrarProfessor()
     Console.WriteLine("Professor cadastrado com sucesso!");
 }
 
-//Matricular aluno em curso
-void MatricularAlunoCurso()
+// Cadastrar Aluno
+
+void CadastrarAluno()
 {
     Console.Clear();
-    Console.WriteLine("-------- Matrícula do Aluno em curso --------");
+    Console.WriteLine("--- Cadastro de Aluno ---");
 
-    Console.Write("Número de matrícula do aluno: ");
-    string numeroMatricula = Console.ReadLine();
+    Console.Write("Nome: ");
+    string nome = Console.ReadLine();
 
-    //Busca nos alunos se o número da matrícula é igual ao digitado
-    Aluno aluno = alunos.FirstOrDefault(a => a.NumeroMatricula == numeroMatricula);
-
-    //Se não encontra o aluno, para
-    if (aluno == null)
+    // Aceita somente letras e espaços
+    while (!Regex.IsMatch(nome ?? "", @"^[a-zA-ZÀ-ÿ\s]+$"))
     {
-        Console.WriteLine("Erro: Aluno não matriculado");
-        return;
+        Console.Write("Nome inválido! Digite o nome novamente: ");
+        nome = Console.ReadLine();
     }
 
-    //Busca na lista de curso pelo código informado
-    Console.Write("Código do curso: ");
-    string CodigoCurso = Console.ReadLine();
+    Console.Write("CPF: ");
+    string cpf = Console.ReadLine();
 
-    Curso curso = cursos.FirstOrDefault(curso => curso.Codigo.Equals(CodigoCurso, StringComparison.OrdinalIgnoreCase));
-
-    //Se não encontra o curso, para
-    if (curso == null)
+    while (!Regex.IsMatch(cpf ?? "", @"^\d{11}$"))
     {
-        Console.WriteLine("Erro: Curso não encontrado.");
-        return;
+        Console.Write("CPF inválido! Digite o CPF com 11 digitos: ");
+        cpf = Console.ReadLine();
     }
-
-    if (matriculas.Any(m => m.Aluno == aluno && m.Curso == curso))
-    {
-        Console.WriteLine("Erro: Aluno já esta matriculado neste curso.");
-        return;
-    }
-
-    Matricula novaMatricula = new Matricula(aluno, curso);
-
-    matriculas.Add(novaMatricula);
-    aluno.Matriculas.Add(novaMatricula);
-
-    Console.WriteLine("Aluno matriculado com sucesso!");
-}
-
-
 
 //parei aqui, o plano era criar Cadastrar Aluno, Cadastrar Disciplina, Vincular Disciplina Curso, Matricula Aluno Curso,
 //Lançar Nota, Consultar Pessoa, Consultar Curso, Consultar Matricula, Consultar Boletim, ENviar Notificação
