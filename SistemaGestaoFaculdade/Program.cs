@@ -40,14 +40,11 @@ do
 
     switch (opcao)
     {
-        //case 1: CadastrarCurso(); break;
-        case 2:Console.WriteLine("=== Cadastrar Disciplina ===\n");
-         CadastrarProfessor(); break;
+              
         case 1: CadastrarCurso(); break;
-        //case 2: CadastrarProfessor(); break;
+        case 2: CadastrarProfessor(); break;
         //case 3: CadastrarAluno(); break;
-        case 4:  Console.WriteLine("=== Cadastrar Disciplina ===\n");
-         CadastrarDisciplina(); break;
+        case 4:  CadastrarDisciplina(); break;
         //case 5: VincularDisciplinaCurso(); break;
         //case 6: MatricularAlunoCurso(); break;
         //case 7: LancarNota(); break;
