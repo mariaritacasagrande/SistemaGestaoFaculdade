@@ -1,4 +1,5 @@
 ﻿using SistemaGestaoFaculdade.Entity;
+using System.Text.RegularExpressions;
 
 // pega as listas que estão na memória pra simular o banco de dados
 
@@ -44,7 +45,7 @@ do
         case 1: CadastrarCurso(); break;
         case 2: CadastrarProfessor(); break;
         case 3: CadastrarAluno(); break;
-        case 4:  CadastrarDisciplina(); break;
+        //case 4: CadastrarDisciplina(); break;
         //case 5: VincularDisciplinaCurso(); break;
         //case 6: MatricularAlunoCurso(); break;
         //case 7: LancarNota(); break;
