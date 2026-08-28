@@ -315,5 +315,30 @@ void EnviarNotificacao()
     }
 }
 
+//Consulta de matrículas
+
+void ConsultarMatriculas()
+{
+    Console.Clear();
+    Console.WriteLine("--- Consulta de Matrículas ---");
+
+    // Verifica se não existe nenhuma matrícula cadastrada
+    if (!matriculas.Any())
+    {
+        Console.WriteLine("Não existem matrículas cadastradas.");
+        return;
+    }
+
+    // Percorre todas as matrículas cadastradas
+    foreach (Matricula matricula in matriculas)
+    {
+        Console.WriteLine($"Aluno: {matricula.Aluno.Nome}");
+        Console.WriteLine($"Matrícula: {matricula.Aluno.NumeroMatricula}");
+        Console.WriteLine($"Curso: {matricula.Curso.Nome}");
+        Console.WriteLine($"Tipo: {matricula.Curso.Tipo}");
+        Console.WriteLine("--------------------------------");
+    }
+}
+
 //parei aqui, o plano era criar Cadastrar Aluno, Cadastrar Disciplina, Vincular Disciplina Curso, Matricula Aluno Curso,
 //Lançar Nota, Consultar Pessoa, Consultar Curso, Consultar Matricula, Consultar Boletim, ENviar Notificação
