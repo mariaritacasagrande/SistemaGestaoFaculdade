@@ -47,7 +47,7 @@ do
         case 3: CadastrarAluno(); break;
         case 4: CadastrarDisciplina(); break;
         case 5: VincularDisciplinaCurso(); break;
-        case 6: MatricularAlunoCurso(); break;
+        //case 6: MatricularAlunoCurso(); break;
         //case 7: LancarNota(); break;
         //case 8: ConsultarPessoas(); break;
         //case 9: ConsultarCursos(); break;
