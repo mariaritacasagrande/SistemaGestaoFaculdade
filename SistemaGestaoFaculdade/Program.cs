@@ -53,7 +53,7 @@ do
         //case 9: ConsultarCursos(); break;
         //case 10: ConsultarMatriculas(); break;
         //case 11: ConsultarBoletim(); break;
-        //case 12: EnviarNotificacao(); break;
+        case 12: EnviarNotificacao(); break;
         case 0: Console.WriteLine("Saindo..."); break;
         default: Console.WriteLine("Opção inválida!"); break;
     }
@@ -287,6 +287,33 @@ void VincularDisciplinaCurso()
     Console.WriteLine("Disciplina vinculada ao curso com sucesso!");
 }
 
+
+//Enviar Notificação
+
+void EnviarNotificacao()
+{
+    Console.Clear();
+    Console.WriteLine("--- Enviar Notificação ---");
+    Console.WriteLine("1 - Aluno\n2 - Professor");
+    string tipo = Console.ReadLine();
+    Console.Write("Mensagem: ");
+    string msg = Console.ReadLine();
+
+    if (tipo == "1")
+    {
+        Console.Write("Matrícula do Aluno: ");
+        string mat = Console.ReadLine();
+        Aluno a = alunos.FirstOrDefault(x => x.NumeroMatricula == mat);
+        a?.ReceberNotificacao(msg);
+    }
+    else if (tipo == "2")
+    {
+        Console.Write("Registro do Professor: ");
+        string reg = Console.ReadLine();
+        Professor p = professores.FirstOrDefault(x => x.Registro == reg);
+        p?.ReceberNotificacao(msg);
+    }
+}
 
 //parei aqui, o plano era criar Cadastrar Aluno, Cadastrar Disciplina, Vincular Disciplina Curso, Matricula Aluno Curso,
 //Lançar Nota, Consultar Pessoa, Consultar Curso, Consultar Matricula, Consultar Boletim, ENviar Notificação
