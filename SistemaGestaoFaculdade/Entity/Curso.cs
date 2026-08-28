@@ -21,5 +21,14 @@ namespace SistemaGestaoFaculdade.Entity
             Nome = nome;
             Tipo = tipo;
         }
+
+        public bool AdicionarDisciplina(Disciplina disciplina)
+        {
+            if (Disciplinas.Any(d => d.Codigo.Equals(disciplina.Codigo, StringComparison.OrdinalIgnoreCase)))
+                return false;
+
+            Disciplinas.Add(disciplina);
+            return true;
+        }
     }
 }
