@@ -47,11 +47,11 @@ do
         case 3: CadastrarAluno(); break;
         case 4: CadastrarDisciplina(); break;
         case 5: VincularDisciplinaCurso(); break;
-        //case 6: MatricularAlunoCurso(); break;
-        //case 7: LancarNota(); break;
+        case 6: MatricularAlunoCurso(); break;
+        case 7: LancarNota(); break;
         //case 8: ConsultarPessoas(); break;
         //case 9: ConsultarCursos(); break;
-        //case 10: ConsultarMatriculas(); break;
+        case 10: ConsultarMatriculas(); break;
         //case 11: ConsultarBoletim(); break;
         case 12: EnviarNotificacao(); break;
         case 0: Console.WriteLine("Saindo..."); break;
@@ -351,14 +351,14 @@ void EnviarNotificacao()
         Console.Write("Matrícula do Aluno: ");
         string mat = Console.ReadLine();
         Aluno a = alunos.FirstOrDefault(x => x.NumeroMatricula == mat);
-        a?.ReceberNotificacao(msg);
+       // a?.ReceberNotificacao(msg);
     }
     else if (tipo == "2")
     {
         Console.Write("Registro do Professor: ");
         string reg = Console.ReadLine();
         Professor p = professores.FirstOrDefault(x => x.Registro == reg);
-        p?.ReceberNotificacao(msg);
+       // p?.ReceberNotificacao(msg);
     }
 }
 
@@ -385,6 +385,94 @@ void ConsultarMatriculas()
         Console.WriteLine($"Tipo: {matricula.Curso.Tipo}");
         Console.WriteLine("--------------------------------");
     }
+}
+
+void LancarNota()
+{
+    Console.Clear();
+    Console.WriteLine("--- LANÇAR NOTA ---");
+
+    if (!matriculas.Any())
+    {
+        Console.WriteLine("Erro: Nenhuma matrícula cadastrada no sistema.");
+        return;
+    }
+
+    Console.Write("Digite a matricula do Aluno: ");
+    string matricula = Console.ReadLine()?.Trim();
+
+    // Busca todas as matrículas deste aluno (já que ele pode ter mais de um curso)
+    var matriculasAluno = matriculas.Where(m => m.Aluno != null && m.Aluno.NumeroMatricula.Equals(matricula, StringComparison.OrdinalIgnoreCase)).ToList();
+
+    if (!matriculasAluno.Any())
+    {
+        Console.WriteLine("Erro: Nenhuma matrícula encontrada para o CPF informado.");
+        return;
+    }
+
+    // Se o aluno tiver apenas 1 matrícula, seleciona direto. Se tiver mais de uma, escolhe o curso.
+    Matricula matriculaSelecionada = null;
+
+    if (matriculasAluno.Count == 1)
+    {
+        matriculaSelecionada = matriculasAluno[0];
+    }
+    else
+    {
+        Console.WriteLine("\nEste aluno possui mais de uma matrícula. Escolha o curso:");
+        for (int i = 0; i < matriculasAluno.Count; i++)
+        {
+            Console.WriteLine($"{i + 1} - Curso: {matriculasAluno[i].Curso.Nome} ({matriculasAluno[i].Curso.Codigo})");
+        }
+        Console.Write("Opção: ");
+        if (!int.TryParse(Console.ReadLine(), out int opcaoMatricula) || opcaoMatricula < 1 || opcaoMatricula > matriculasAluno.Count)
+        {
+            Console.WriteLine("Opção de matrícula inválida.");
+            return;
+        }
+        matriculaSelecionada = matriculasAluno[opcaoMatricula - 1];
+    }
+
+    // Verifica se o curso possui disciplinas vinculadas
+    if (matriculaSelecionada.Curso.Disciplinas == null || !matriculaSelecionada.Curso.Disciplinas.Any())
+    {
+        Console.WriteLine("Erro: O curso desta matrícula não possui disciplinas vinculadas.");
+        return;
+    }
+
+    // Lista as disciplinas do curso para seleção
+    Console.WriteLine($"\nCurso: {matriculaSelecionada.Curso.Nome}");
+    Console.WriteLine("Disciplinas disponíveis:");
+    var disciplinasCurso = matriculaSelecionada.Curso.Disciplinas;
+
+    for (int i = 0; i < disciplinasCurso.Count; i++)
+    {
+        Console.WriteLine($"{i + 1} - {disciplinasCurso[i].Nome} (Código: {disciplinasCurso[i].Codigo})");
+    }
+
+    Console.Write("Escolha o número da disciplina: ");
+    if (!int.TryParse(Console.ReadLine(), out int opcaoDisc) || opcaoDisc < 1 || opcaoDisc > disciplinasCurso.Count)
+    {
+        Console.WriteLine("Disciplina inválida.");
+        return;
+    }
+
+    Disciplina disciplinaSelecionada = disciplinasCurso[opcaoDisc - 1];
+
+    // Solicita e valida a nota
+    Console.Write($"Digite a nota para a disciplina '{disciplinaSelecionada.Nome}' (0 a 10): ");
+    if (!double.TryParse(Console.ReadLine(), out double nota) || nota < 0 || nota > 10)
+    {
+        Console.WriteLine("Erro: Nota inválida. Digite um número entre 0 e 10.");
+        return;
+    }
+
+    // Salva ou atualiza a nota no dicionário do Boletim
+    matriculaSelecionada.Boletim.NotaPorDisciplina[disciplinaSelecionada] = nota;
+
+    string situacao = matriculaSelecionada.Boletim.ObterSituacao(nota, matriculaSelecionada.Curso.Tipo);
+    Console.WriteLine($"\nNota {nota:F1} lançada com sucesso!");
+    Console.WriteLine($"Situação na disciplina: {situacao}");
 }
 
 //parei aqui, o plano era criar Cadastrar Aluno, Cadastrar Disciplina, Vincular Disciplina Curso, Matricula Aluno Curso,
