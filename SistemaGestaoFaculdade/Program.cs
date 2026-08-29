@@ -9,6 +9,40 @@ List<Aluno> alunos = new List<Aluno> ();
 List<Disciplina> disciplinas = new List<Disciplina> ();
 List<Matricula> matriculas = new List<Matricula> ();
 
+// ===============================================================================
+// DADOS MOCKADOS PARA TESTES E VALIDAÇÃO DO SISTEMA
+// ===============================================================================
+
+// 1. Professores
+Professor prof1 = new Professor("Carlos Eduardo", "11122233344", "carlos.eduardo@faculdade.edu", "1", "Engenharia de Software");
+Professor prof2 = new Professor("Mariana Lima", "22233344455", "mariana.lima@faculdade.edu", "2", "Banco de Dados e IA");
+
+professores.Add(prof1);
+professores.Add(prof2);
+
+// 2. Cursos
+Curso curso1 = new Curso("1", "Análise e Desenvolvimento de Sistemas", TipoCurso.Graduação);
+Curso curso2 = new Curso("2", "Arquitetura de Software", TipoCurso.PosGraduacao);
+
+cursos.Add(curso1);
+cursos.Add(curso2);
+
+// 3. Disciplinas (Vinculando os professores responsáveis)
+Disciplina disc1 = new Disciplina("1", "Programação Orientada a Objetos", 80, prof1);
+Disciplina disc2 = new Disciplina("2", "Modelagem de Banco de Dados", 60, prof2);
+Disciplina disc3 = new Disciplina("3", "Microserviços e Nuvem", 40, prof1);
+
+disciplinas.Add(disc1);
+disciplinas.Add(disc2);
+disciplinas.Add(disc3);
+
+// 4. Alunos
+Aluno aluno1 = new Aluno("Ana Silva", "12345678901", "ana.silva@email.com", "1");
+Aluno aluno2 = new Aluno("Bruno Costa", "98765432100", "bruno.costa@email.com", "2");
+
+alunos.Add(aluno1);
+alunos.Add(aluno2);
+
 //aqui começa o menu
 
 int opcao;
