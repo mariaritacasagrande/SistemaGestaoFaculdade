@@ -136,8 +136,21 @@ void CadastrarProfessor()
     Console.WriteLine("--- Cadastro de Professor ---");
     Console.Write("Nome: ");
     string nome = Console.ReadLine();
+    // Aceita somente letras e espaços
+    while (!Regex.IsMatch(nome ?? "", @"^[a-zA-ZÀ-ÿ\s]+$"))
+    {
+        Console.Write("Nome inválido! Digite o nome novamente: ");
+        nome = Console.ReadLine();
+    }
+
     Console.Write("CPF: ");
     string cpf = Console.ReadLine();
+
+    while (!Regex.IsMatch(cpf ?? "", @"^\d{11}$"))
+    {
+        Console.Write("CPF inválido! Digite o CPF com 11 digitos: ");
+        cpf = Console.ReadLine();
+    }
 
     if (professores.Any(p => p.CPF == cpf))
     {
@@ -714,5 +727,3 @@ void ConsultarBoletim()
 
     Console.WriteLine("===========================");
 }
-//parei aqui, o plano era criar Cadastrar Aluno, Cadastrar Disciplina, Vincular Disciplina Curso, Matricula Aluno Curso,
-//Lançar Nota, Consultar Pessoa, Consultar Curso, Consultar Matricula, Consultar Boletim, ENviar Notificação
