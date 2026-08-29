@@ -461,14 +461,14 @@ void EnviarNotificacao()
         Console.Write("Matrícula do Aluno: ");
         string mat = Console.ReadLine();
         Aluno a = alunos.FirstOrDefault(x => x.NumeroMatricula == mat);
-       // a?.ReceberNotificacao(msg);
+        a?.ReceberNotificacao(msg);
     }
     else if (tipo == "2")
     {
         Console.Write("Registro do Professor: ");
         string reg = Console.ReadLine();
         Professor p = professores.FirstOrDefault(x => x.Registro == reg);
-       // p?.ReceberNotificacao(msg);
+        p?.ReceberNotificacao(msg);
     }
 }
 

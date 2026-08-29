@@ -23,7 +23,7 @@ namespace SistemaGestaoFaculdade.Entity
         }
         //Um método para permitir que alunos e professores recebem notificação
 
-        public void ReceberNotificação(string mensagem)
+        public void ReceberNotificacao(string mensagem)
         {
             Console.WriteLine($"Notificação para {Nome} :  {mensagem}");
         }
