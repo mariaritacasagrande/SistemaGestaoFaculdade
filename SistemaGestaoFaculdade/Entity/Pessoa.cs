@@ -18,7 +18,7 @@ namespace SistemaGestaoFaculdade.Entity
         protected Pessoa(string nome, string cpf, string email)
         {
             Nome = nome;
-            cpf = cpf;
+            CPF = cpf;
             Email = email;
         }
         //Um método para permitir que alunos e professores recebem notificação
