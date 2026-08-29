@@ -119,9 +119,16 @@ do
         Console.Write("Nome: ");
         string nome = Console.ReadLine();
         Console.WriteLine("Tipo (1 - Graduação | 2 - Pós-graduação): ");
-        int tipoOp = int.Parse(Console.ReadLine());
+        int tipoOp;
+        while (!int.TryParse(Console.ReadLine(), out tipoOp) || (tipoOp != 1 && tipoOp != 2))
+        { 
+            Console.Write("Opção inválida! Digite 1 para Graduação ou 2 para Pós-graduação: ");
+            Console.WriteLine("Tipo (1 - Graduação | 2 - Pós-graduação): ");
+   
+        }
+       
 
-        TipoCurso tipo = (tipoOp == 2) ? TipoCurso.PosGraduacao : TipoCurso.Graduação;
+    TipoCurso tipo = (tipoOp == 2) ? TipoCurso.PosGraduacao : TipoCurso.Graduação;
         cursos.Add(new Curso(codigo, nome, tipo));
         Console.WriteLine("Curso cadastrado com sucesso!");
     }
@@ -563,7 +570,7 @@ void LancarNota()
 
     if (!matriculasAluno.Any())
     {
-        Console.WriteLine("Erro: Nenhuma matrícula encontrada para o CPF informado.");
+        Console.WriteLine("Erro: Nenhuma matrícula encontrada.");
         return;
     }
 
