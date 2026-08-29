@@ -361,7 +361,7 @@ void ConsultarPessoas()
                 {
                     Console.WriteLine("Nenhum aluno cadastrado.");
                     Console.ReadKey();
-                    break;
+                    return;
                 }
 
                 foreach (Aluno aluno in alunos)
@@ -375,14 +375,14 @@ void ConsultarPessoas()
                     foreach (Matricula matricula in aluno.Matriculas)
                         Console.WriteLine($"- {matricula.Curso.Nome}");
                 }
-                break;
+                return;
 
             case 2:
                 if (professores.Count == 0)
                 {
                     Console.WriteLine("Nenhum professor cadastrado.");
                     Console.ReadKey();
-                    break;
+                    return;
                 }
 
                 foreach (Professor professor in professores)
@@ -393,10 +393,10 @@ void ConsultarPessoas()
                     Console.WriteLine($"Registro: {professor.Registro}");
                     Console.WriteLine($"Especialidade: {professor.Especialidade}");
                 }
-                break;
+                return;
 
             case 0:
-                break;
+                return;
 
             default:
                 Console.WriteLine("Opção inválida!");
