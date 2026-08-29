@@ -55,6 +55,7 @@ SistemaGestaoFaculdade/
 │   └── Boletim.cs          # Gerenciamento de notas e cálculo de situação
 │
 └── Program.cs              # Menu interativo do Console e lógica de apresentação
+```
 
 ## 📱 Menu da Aplicação
 Ao executar o projeto, você verá o seguinte menu interativo:
