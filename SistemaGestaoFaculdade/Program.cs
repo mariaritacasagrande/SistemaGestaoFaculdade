@@ -158,14 +158,12 @@ void CadastrarDisciplina()
         return;
     }
 
-    Console.Write("Digite o código do professor responsável: ");
-    string codigoProfessor = Console.ReadLine();
+    Console.Write("Digite o registro do professor responsável: ");
+    string registro = Console.ReadLine();
 
-    Console.Write("Professor responsável: ");
-    string nomeProfessor = Console.ReadLine();
 
     Professor professorResponsavel = professores
-    .FirstOrDefault(p => p.Nome.Equals(nomeProfessor, StringComparison.OrdinalIgnoreCase));
+    .FirstOrDefault(p => p.Registro.Equals(registro, StringComparison.OrdinalIgnoreCase));
 
     if (professorResponsavel == null)
     {
