@@ -58,4 +58,7 @@ SistemaGestaoFaculdade/
 
 ## 📱 Menu da Aplicação
 Ao executar o projeto, você verá o seguinte menu interativo:
-<img width="755" height="287" alt="MenuSGF" src="https://github.com/user-attachments/assets/f12da0b0-cb75-40e2-8ad8-507e52a2d078" />
+
+<img src="SistemaGestaoFaculdade/Assets/MenuSGF.png" alt="Menu SGF" width="755" height="287" />
+ 
+ 
